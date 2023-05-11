@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  ubuntu:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        UBUNTU_VERSION: 20.04
+    volumes:
+      - ..:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"  
+    network_mode: service:postgresql
+    
+  postgresql:
+    image: postgres:15.2
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "pass:word"
+      POSTGRES_USER: sensu_test_user
+      POSTGRES_DB: sensu_test_db

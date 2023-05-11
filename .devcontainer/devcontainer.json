@@ -1,0 +1,7 @@
+{
+    "dockerComposeFile": "docker-compose.yml",
+    "postCreateCommand": "bundle install",
+    "overrideCommand": true,
+    "service": "ubuntu",
+    "workspaceFolder": "/workspace"
+}

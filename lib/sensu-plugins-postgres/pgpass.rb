@@ -3,7 +3,7 @@
 module Pgpass
   def read_pgpass(pg_pass_file)
     File.readlines(pg_pass_file).each do |line|
-      return line.strip.split(':') unless line.start_with?('#')
+      return line.strip.split(/(?<!\\):/) unless line.start_with?('#')
 
       next
     end
@@ -13,6 +13,7 @@ module Pgpass
     if File.file?(config[:pgpass])
       pgpass = Hash[%i[hostname port database user password].zip(read_pgpass(config[:pgpass]))]
       pgpass[:database] = nil if pgpass[:database] == '*'
+      pgpass[:password] = pgpass[:password].gsub('\\:', ':')
       pgpass.each do |k, v|
         config[k] ||= v
       end

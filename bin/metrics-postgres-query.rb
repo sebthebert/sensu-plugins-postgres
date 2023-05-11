@@ -95,7 +95,7 @@ class MetricsPostgresQuery < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Connection timeout (seconds)',
          short: '-T TIMEOUT',
          long: '--timeout TIMEOUT',
-         default: nil
+         default: ENV['PGTIMEOUT'] || 30
 
   include Pgpass
 
